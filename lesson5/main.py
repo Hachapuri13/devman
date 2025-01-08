@@ -4,9 +4,9 @@ import random
 from faker import Faker
 
 
-fake = Faker("ru_RU")
+fake = Faker('ru_RU')
 
-runic_alphabet = {
+RUNIC_ALPHABET = {
     'а': 'а͠', 'б': 'б̋', 'в': 'в͒͠',
     'г': 'г͒͠', 'д': 'д̋', 'е': 'е͠',
     'ё': 'ё͒͠', 'ж': 'ж͒', 'з': 'з̋̋͠',
@@ -32,20 +32,22 @@ runic_alphabet = {
     ' ': ' '
 }
 
-skills = [
-    "Стремительный прыжок",
-    "Электрический выстрел",
-    "Ледяной удар",
-    "Стремительный удар",
-    "Кислотный взгляд",
-    "Тайный побег",
-    "Ледяной выстрел",
-    "Огненный заряд"
+SKILLS = [
+    'Стремительный прыжок',
+    'Электрический выстрел',
+    'Ледяной удар',
+    'Стремительный удар',
+    'Кислотный взгляд',
+    'Тайный побег',
+    'Ледяной выстрел',
+    'Огненный заряд'
 ]
 
+CHARACTERS_NUM = 10
 
-def create_character(num_of_characters):
-    for character_num in range(num_of_characters):
+
+def main():
+    for character_num in range(CHARACTERS_NUM):
         if random.randint(0, 1):
             first_name = fake.first_name_male()
             last_name = fake.last_name_male()
@@ -56,36 +58,32 @@ def create_character(num_of_characters):
         job = fake.job()
         town = fake.city()
 
-        non_repetitive_skills = random.sample(skills, 3)
+        non_repetitive_skills = random.sample(SKILLS, 3)
         runic_skills = []
 
         for skill in non_repetitive_skills:
-            runic_skill = ""
+            runic_skill = ''
             for letter in skill:
-                runic_skill += runic_alphabet[letter]
+                runic_skill += RUNIC_ALPHABET[letter]
             runic_skills.append(runic_skill)
 
         context = {
-            "first_name": first_name,
-            "last_name": last_name,
-            "job": job,
-            "town": town,
-            "strength": random.randint(3, 18),
-            "agility": random.randint(3, 18),
-            "endurance": random.randint(3, 18),
-            "intelligence": random.randint(3, 18),
-            "luck": random.randint(3, 18),
-            "skill_1": runic_skills[0],
-            "skill_2": runic_skills[1],
-            "skill_3": runic_skills[2]
+            'first_name': first_name,
+            'last_name': last_name,
+            'job': job,
+            'town': town,
+            'strength': random.randint(3, 18),
+            'agility': random.randint(3, 18),
+            'endurance': random.randint(3, 18),
+            'intelligence': random.randint(3, 18),
+            'luck': random.randint(3, 18),
+            'skill_1': runic_skills[0],
+            'skill_2': runic_skills[1],
+            'skill_3': runic_skills[2]
         }
-        output_path = os.path.join("output", "svg", f"person-{character_num+1}.svg")
+        output_path = os.path.join('output', 'svg', f'person-{character_num+1}.svg')
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
-        fops.render_template("charsheet.svg", output_path, context)
-
-
-def main():
-    create_character(10)
+        fops.render_template('charsheet.svg', output_path, context)
 
 
 if __name__ == '__main__':
