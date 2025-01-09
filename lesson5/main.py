@@ -123,7 +123,7 @@ def main():
             'luck': random.randint(3, 18),
             'skill_1': runic_skills[0],
             'skill_2': runic_skills[1],
-            'skill_3': runic_skills[2]
+            'skill_3': runic_skills[2],
         }
         output_path = os.path.join('output', 'svg', f'person-{character_num+1}.svg')
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
