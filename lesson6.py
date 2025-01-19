@@ -1,6 +1,5 @@
 def is_very_long(password):
-    password_length = len(password)
-    return password_length >= 12
+    return len(password) >= 12
 
 
 def has_digit(password):
@@ -16,18 +15,28 @@ def has_lower_letters(password):
 
 
 def has_symbols(password):
-    for symbol in password:
-        if not symbol.isdigit() and not symbol.isalpha():
-            return True
-    return False
+    return any(not symbol.isdigit() and
+               not symbol.isalpha() for symbol in password)
 
 
-password = input("Введите пароль: ")
-score = 0
+def main():
+    password = input("Введите пароль: ")
+    score = 0
 
-functions = [is_very_long, has_digit, has_upper_letters, has_lower_letters, has_symbols]
-for func in functions:
-    if func(password):
-        score += 2
+    functions = [
+        is_very_long,
+        has_digit,
+        has_upper_letters,
+        has_lower_letters,
+        has_symbols,
+    ]
 
-print(f"Рейтинг пароля: {score}")
+    for func in functions:
+        if func(password):
+            score += 2
+
+    print(f"Рейтинг пароля: {score}")
+
+
+if __name__ == "__main__":
+    main()
