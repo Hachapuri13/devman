@@ -4,11 +4,6 @@ import os
 from pytimeparse import parse
 
 
-TG_TOKEN = os.environ['TG_TOKEN']
-
-bot = ptbot.Bot(TG_TOKEN)
-
-
 def wait(chat_id, time):
     secs_time = parse(time)
     message_id = bot.send_message(chat_id, "Запускаю таймер...")
@@ -43,6 +38,9 @@ def answer(chat_id):
 
 def main():
     load_dotenv()
+    TG_TOKEN = os.environ['TG_TOKEN']
+    
+    bot = ptbot.Bot(TG_TOKEN)
     bot.reply_on_message(wait)
     bot.run_bot()
 
